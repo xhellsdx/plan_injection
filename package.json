@@ -1,0 +1,26 @@
+{
+  "name": "plan-injection",
+  "version": "1.0.0",
+  "description": "Целью расширения является улучшение функционала Битрикс24 CRM ресурса https://plan.pixelplus.ru для работников компании. После установки расширения, для полноценной работы рекомендуется в настройках расширения указать Имя/Фамилию пользователя, а так же его уникальный ID в CRM. Далее отметить чекбоксами необходимый функционал и сохранить настройки. При добавлении новых функций в расширение они будут по умолчанию деактивированы.",
+  "main": "plan-injection.js",
+  "scripts": {
+    "dev": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xhellsdx/plan_injection.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xhellsdx/plan_injection/issues"
+  },
+  "homepage": "https://github.com/xhellsdx/plan_injection#readme",
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  }
+}

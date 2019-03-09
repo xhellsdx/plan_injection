@@ -1,0 +1,28 @@
+{
+   "name": "plan.pixelplus.ru Injection",
+   "manifest_version": 2,
+   "version": "1.4",
+   "permissions": [ "tabs", "https://plan.pixelplus.ru/*", "storage", "activeTab" ],
+	 
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "plan-injection.js" ],
+      "matches": [ "https://plan.pixelplus.ru/*"],
+      "run_at": "document_start"
+		} ],
+		
+	 "icons": {
+    "50": "plan-injection-icon.png"
+		},
+		
+   "browser_action": {
+      "default_icon": "plan-injection-icon.png"
+   },
+	 
+	 "options_page": "options.html",
+	 
+	"background": {
+    "all_frames": true,
+    "scripts": ["background.js"]
+  }
+}

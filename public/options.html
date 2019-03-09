@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<head>
+		<title>Настройки Plan Injection</title>
+	</head>
+	<body>
+    <h1>Настройки Plan Injection</h1>
+    <h2>Общие настройки</h2>
+    <p>
+      <input data-option="firstName" placeholder="Ваше имя" type="text" value="">
+      <input data-option="secondName" placeholder="Ваша фамилия" type="text" value="">
+    </p>
+    <p><input data-option="userId" placeholder="ID пользователя" type="text" value=""></p>
+    <h2>Настройки внешнего вида</h2>
+		<p>
+      <label><input data-option="isChangeUserNameColor" type="checkbox"> Изменить цвет имени юзера</label>
+      <input type="color" value="#ff0000" data-option='nameColor'>
+    </p>
+		<p>
+      <label><input data-option="isChangeNewCommentColor" type="checkbox"> Изменить цвет новых комментариев</label>
+      <input type="color" value="#b7ecca" data-option='newCommentColor'>
+    </p>
+		<p>
+      <label><input data-option="isQuotesNewColor" type="checkbox"> Изменить стили цитат </label>
+      <label><input type="color" value="#fde08d" data-option='quotesBackgroundColor'> Фон</label>
+      <label><input type="color" value="#1e7aa9" data-option='quotesBorderColor'> Рамка</label>
+    </p>
+		<p>
+      <label><input data-option="isTagallNewColor" type="checkbox"> Изменить цвет TAGALL </label>
+      <input type="color" value="#f97105" data-option='tagallNewColor'>
+    </p>
+		<p>
+      <label><input data-option="isAddMessagesBorders" type="checkbox"> Добавить рамку для сообщений</label>
+    </p>
+		<p><label><input data-option="isHideLiveFeed" type="checkbox"> Скрыть живую ленту</label></p>
+		<p>
+      <label><input data-option="isReturnUsersStatus" type="checkbox"> Вернуть статусы юзеров в чатах (online)</label>
+    </p>
+		<p>
+      <label><input data-option="isHideTasksImg" type="checkbox"> Скрыть изображения задач в канбане</label>
+    </p>
+    <p><label><input data-option="isTasksLikesHide" type="checkbox"> Скрыть лайки у задач</label></p>
+    
+    <h2>Расширение функционала</h2>
+    <p>
+      <label>
+        <input data-option="isMarkMissingUsers" type="checkbox"> Отмечать в сообщениях задачи юзеров, которые не добавлены в задачу
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isHideForumInSearchResult" type="checkbox"> Убрать ссылки на форум в результатах поиска
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isHideNotForUserMessages" type="checkbox"> Закрывать уведомления, не адресованные юзеру
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isDisableShowTaskOnTagClick" type="checkbox"> Убрать открытие задачи при клике на тег в канбане
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAutoChoiseFindSingleUser" type="checkbox"> Автоматически выбирать единственного найденного сотрудника при поиске через +
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isChangeTitleOnProjectPage" type="checkbox"> На страницах проектов добавить в title название проекта
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddLongLinkRepair" type="checkbox"> Добавить кнопку для починки длинных ссылок
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddDelAllTaskMessages" type="checkbox"> Добавить кнопку для удаления всех уведомлений текущей задачи
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isMarkMessagesWithoutDestination" type="checkbox"> Отмечать сообщения, которые никому не адресованы
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isOpenAllCommentsInTask" type="checkbox"> Добавить кнопку открытия всех комментариев задачи
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddEditTaskButton" type="checkbox"> Добавить кнопку редактирования задачи в канбане
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddCurrentMountButton" type="checkbox"> Добавить кнопку указания тега текущего месяца в канбане
+      </label>
+    </p>
+    
+    <h2>Модификация страницы /alert/</h2>
+    
+    <p>
+      <label>
+        <input data-option="isMarkMessagesToUsers" type="checkbox"> Отметить все сообщения и задачи, в которых упоминается юзер
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddGroupName" type="checkbox"> Добавить названия групп для блоков сообщений (для задач)
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddAllTasksOpenButton" type="checkbox"> Добавить кнопку открытия всех задач
+      </label>
+    </p>
+    <p>
+      <label>
+        <input data-option="isAddGroupFilter" type="checkbox"> Включить фильтрацию задачи по группам
+      </label>
+    </p>
+
+		<br>
+		<div class="status"></div>
+		<br>
+		<button class="save">Сохранить</button>
+		
+		<script src="options.js"></script>
+	</body>
+</html>
