@@ -154,14 +154,13 @@ export function markMessagesWithoutDestination() {
       if (messageUserBox.querySelector('span.warning_message')) messageUserBox.querySelector('span.warning_message').className = '';
       return false;
     }
-    const usersInCommetns = [...message.querySelectorAll('a[href*="/company/personal/user/"]')];
-    usersInCommetns.forEach((comment) => {
-      const linkText = comment.innerText;
-      const linkIdUserId = re.exec(comment.href)[1];
-      if (messageUserId == linkIdUserId) return false;
+    const usersInCommetns = message.querySelectorAll('a[href*="/company/personal/user/"]');
+    for (let i = 0; i < usersInCommetns.length; i++) {
+      const linkText = usersInCommetns[i].innerText;
+      const linkIdUserId = re.exec(usersInCommetns[i].href)[1];
+      if (messageUserId === linkIdUserId) return false;
       if (messageText.includes(linkText)) return false;
-      return true;
-    });
+    }
 
     const warningImg = document.createElement('span');
     warningImg.className = 'warning_message';
