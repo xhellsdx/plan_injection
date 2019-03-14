@@ -1,7 +1,7 @@
 {
    "name": "plan.pixelplus.ru Injection",
    "manifest_version": 2,
-   "version": "1.5",
+   "version": "1.6.1",
    "permissions": [ "tabs", "https://plan.pixelplus.ru/*", "storage", "activeTab" ],
 	 
    "content_scripts": [ {

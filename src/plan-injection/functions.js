@@ -162,6 +162,8 @@ export function markMessagesWithoutDestination() {
       if (messageText.includes(linkText)) return false;
     }
 
+    if (messageUserBox.querySelector('span.warning_message')) return false;
+
     const warningImg = document.createElement('span');
     warningImg.className = 'warning_message';
     warningImg.style = 'background-image: url(https://stjah.com/image/catalog/text/01publick.png); width: 20px; height: 20px; top: 5px; position: absolute; z-index: 9999; background-size: 20px 20px;';
