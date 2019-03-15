@@ -11,11 +11,15 @@ let time = new Date().getTime();
 chrome.storage.local.get('options', (result) => {
   const options = result.options;
 
+  if (!options) return false;
+
   // Инъекция стилей
-  const customStylesTag = document.createElement('style');
-  customStylesTag.id = 'pixel-plan-injection-extension';
-  customStylesTag.innerHTML = options.styles;
-  document.documentElement.appendChild(customStylesTag);
+  if ('styles' in options) {
+    const customStylesTag = document.createElement('style');
+    customStylesTag.id = 'pixel-plan-injection-extension';
+    customStylesTag.innerHTML = options.styles;
+    document.documentElement.appendChild(customStylesTag);
+  }
 
   // навешиваем обработчики
   document.addEventListener('DOMContentLoaded', () => {
