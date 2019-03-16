@@ -92,9 +92,9 @@ export function addGroupFilter() {
   const messages = [...document.querySelectorAll('div.message-item')];
   if (blocks.length === 0 && messages.length === 0) return false;
 
-  const groups = [];
+  const groups = {};
   const select = document.createElement('select');
-  select.style = 'height: 30px; font-size: 12px; border: 1px solid #dbdbdb; margin-left: 25px;';
+  select.style = 'height: 30px; font-size: 12px; border: 1px solid #dbdbdb; margin-left: 25px; width: 200px;';
 
   if (blocks.length > 0 && messages.length > 0) {
     blocks.forEach((block) => {
@@ -102,17 +102,24 @@ export function addGroupFilter() {
       const gropuA = block.querySelector('div.task-messages div.message-item div.message-message a');
       if (!gropuA) {
         block.classList.add('injection_script_filter_none');
+        groups.none = ('none' in groups) ? groups.none + 1 : 1;
         return false;
       }
       const re = /в группе (.+)\)/gi;
       let groupName = re.exec(gropuA.outerHTML);
       if (!Array.isArray(groupName)) {
         block.classList.add('injection_script_filter_none');
+        groups.none = ('none' in groups) ? groups.none + 1 : 1;
         return false;
       }
+
       groupName = groupName[1];
-      if (!groups.includes(groupName)) groups.push(groupName);
-      block.classList.add(`injection_script_filter_${groups.indexOf(groupName)}`);
+      if (groupName in groups) {
+        groups[groupName].count++;
+      } else {
+        groups[groupName] = { count: 1, id: Object.keys(groups).length };
+      }
+      block.classList.add(`injection_script_filter_${groups[groupName].id}`);
       return true;
     });
   }
@@ -123,17 +130,24 @@ export function addGroupFilter() {
       const gropuA = message.querySelector('div.message-message a');
       if (!gropuA) {
         message.classList.add('injection_script_filter_none');
+        groups.none = ('none' in groups) ? groups.none + 1 : 1;
         return false;
       }
       const re = /в группе (.+)\)/gi;
       let groupName = re.exec(gropuA.outerHTML);
       if (!Array.isArray(groupName)) {
         message.classList.add('injection_script_filter_none');
+        groups.none = ('none' in groups) ? groups.none + 1 : 1;
         return false;
       }
+
       groupName = groupName[1];
-      if (!groups.includes(groupName)) groups.push(groupName);
-      message.classList.add(`injection_script_filter_${groups.indexOf(groupName)}`);
+      if (groupName in groups) {
+        groups[groupName].count++;
+      } else {
+        groups[groupName] = { count: 1, id: Object.keys(groups).length };
+      }
+      message.classList.add(`injection_script_filter_${groups[groupName].id}`);
       return true;
     });
   }
@@ -145,15 +159,16 @@ export function addGroupFilter() {
   if (document.querySelector('div.injection_script_filter_none')) {
     const optionNone = document.createElement('option');
     optionNone.value = 'none';
-    optionNone.innerText = 'Без группы';
+    optionNone.innerText = `Без группы (${groups.none})`;
     select.appendChild(optionNone);
   }
-  const groupsSort = groups.slice().sort();
+  const groupsSort = Object.keys(groups).sort();
 
   groupsSort.forEach((group) => {
+    if (group === 'none') return false;
     const option = document.createElement('option');
-    option.innerText = group;
-    option.value = groups.indexOf(group);
+    option.innerText = `${group} (${groups[group].count})`;
+    option.value = groups[group].id;
     select.appendChild(option);
   });
 
