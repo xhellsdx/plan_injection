@@ -95,6 +95,7 @@ export function addGroupFilter() {
   const groups = {};
   const select = document.createElement('select');
   select.style = 'height: 30px; font-size: 12px; border: 1px solid #dbdbdb; margin-left: 25px; width: 200px;';
+  select.className = 'plan_injection_messages_filter';
 
   if (blocks.length > 0 && messages.length > 0) {
     blocks.forEach((block) => {
@@ -170,6 +171,7 @@ export function addGroupFilter() {
     option.innerText = `${group} (${groups[group].count})`;
     option.value = groups[group].id;
     select.appendChild(option);
+    return true;
   });
 
   const styles = document.createElement('style');
@@ -181,5 +183,29 @@ export function addGroupFilter() {
 
   const settingsBlock = document.querySelectorAll('div.settings-row');
   if (settingsBlock.length > 0) settingsBlock[settingsBlock.length - 1].appendChild(select);
+  return true;
+}
+
+// функция для изменения числа оставшихся задач при их удалении
+export function calculateTasksCount() {
+  const messages = document.querySelector('div.im-messages');
+  if (!messages) return false;
+  const messagesObserver = new MutationObserver((mutations) => {
+    const cnt = (document.querySelector('div.im-messages')) ? document.querySelector('div.im-messages').children.length : 0;
+    const alertTotal = document.querySelector('span.alert-total b');
+    if (alertTotal) alertTotal.innerText = cnt;
+    const filerSelect = document.querySelector('select.plan_injection_messages_filter');
+    if (filerSelect) {
+      let filterName = /injection_script_filter_([\da-z]+)/gi.exec(mutations[0].removedNodes[0].className);
+      if (filterName) filterName = filterName[1];
+      const selectOption = document.querySelector(`select.plan_injection_messages_filter option[value="${filterName}"]`);
+      if (!selectOption) return false;
+      let tasksCnt = / \((\d+)\)/gi.exec(selectOption.innerText);
+      if (tasksCnt) tasksCnt = Number(tasksCnt[1]) - 1;
+      selectOption.innerText = selectOption.innerText.replace(/ \((\d+)\)/gi, ` (${tasksCnt})`);
+    }
+    return true;
+  });
+  messagesObserver.observe(messages, { attributes: false, childList: true, characterData: false });
   return true;
 }

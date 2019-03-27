@@ -1,5 +1,5 @@
 import {
-  alertDeleteMessage, addAllTasksOpenButton, addGroupName, markMessagesToUsers, addGroupFilter,
+  alertDeleteMessage, addAllTasksOpenButton, addGroupName, markMessagesToUsers, addGroupFilter, calculateTasksCount,
 } from './functions-alert';
 import {
   hideForumInSearchResult, disableShowTaskOnTagClick, hideNotForUserMessages, autoChoiseFindSingleUser, changeTitleOnProjectPage, addLongLinkRepair, addDelAllTaskMessages, markMessagesWithoutDestination, openAllCommentsInTask, addEditTaskButton, addCurrentMountButton, markMissingUsers, tagAllColorChange, getBitrixSessid,
@@ -49,6 +49,7 @@ chrome.storage.local.get('options', (result) => {
     window.addEventListener('focus', () => { scriptsInjection(options); });
     window.addEventListener('blur', () => { scriptsInjection(options); });
   });
+  return true;
 });
 
 
@@ -77,4 +78,5 @@ function alertScriptsInjection(options) {
   if ('isAddGroupName' in options) addGroupName();
   if ('isAddAllTasksOpenButton' in options) addAllTasksOpenButton();
   if ('isAddGroupFilter' in options) addGroupFilter();
+  calculateTasksCount();
 }
