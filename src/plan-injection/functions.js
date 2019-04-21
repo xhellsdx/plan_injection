@@ -143,6 +143,23 @@ export function addDelAllTaskMessages() {
 export function markMessagesWithoutDestination() {
   if (!location.href.includes('/task/view/')) return false;
   const messages = [...document.querySelectorAll('div.feed-com-text')];
+  let isUsersMarksIn100Sym = false;
+
+  function markMessageBlock(message, text, link) {
+    const messageUserBox = message.previousElementSibling;
+    const warningImg = document.createElement('span');
+    if (!messageUserBox.querySelector('span.warning_message')) {
+      warningImg.className = 'warning_message';
+      warningImg.style = 'background-image: url(https://stjah.com/image/catalog/text/01publick.png); width: 20px; height: 20px; top: 5px; position: absolute; z-index: 9999; background-size: 20px 20px;';
+      warningImg.title = text;
+      messageUserBox.appendChild(warningImg);
+    }
+    if (link && !link.classList.contains('marked')) {
+      link.style = 'background-image: url(https://minecraft-statistic.net/img/screen/icon/166252.png); background-repeat: no-repeat; background-size: 15px 15px; background-position-x: 99%; padding-right: 20px;';
+      link.title = 'Упоминание пользователя не в первых 100 символах сообщения';
+      link.classList.add('marked');
+    }
+  }
 
   messages.forEach((message) => {
     const messageUserBox = message.previousElementSibling;
@@ -158,17 +175,22 @@ export function markMessagesWithoutDestination() {
     for (let i = 0; i < usersInCommetns.length; i++) {
       const linkText = usersInCommetns[i].innerText;
       const linkIdUserId = re.exec(usersInCommetns[i].href)[1];
-      if (messageUserId === linkIdUserId) return false;
-      if (messageText.includes(linkText)) return false;
+      if (messageUserId === linkIdUserId) continue;
+      if (!messageText.includes(linkText)) {
+        markMessageBlock(message, 'Обращение к пользователю не в первых 100 символах', usersInCommetns[i]);
+      } else {
+        isUsersMarksIn100Sym = true;
+      }
     }
 
     if (messageUserBox.querySelector('span.warning_message')) return false;
+    if (!isUsersMarksIn100Sym) markMessageBlock(message, 'В первой части комментария нет ни одного обращения к другому пользователю', undefined);
 
-    const warningImg = document.createElement('span');
-    warningImg.className = 'warning_message';
-    warningImg.style = 'background-image: url(https://stjah.com/image/catalog/text/01publick.png); width: 20px; height: 20px; top: 5px; position: absolute; z-index: 9999; background-size: 20px 20px;';
-    warningImg.title = 'В первой части комментария нет ни одного обращения к другому пользователю';
-    messageUserBox.appendChild(warningImg);
+    // const warningImg = document.createElement('span');
+    // warningImg.className = 'warning_message';
+    // warningImg.style = 'background-image: url(https://stjah.com/image/catalog/text/01publick.png); width: 20px; height: 20px; top: 5px; position: absolute; z-index: 9999; background-size: 20px 20px;';
+    // warningImg.title = 'В первой части комментария нет ни одного обращения к другому пользователю';
+    // messageUserBox.appendChild(warningImg);
     return true;
   });
   return true;
@@ -262,12 +284,14 @@ export function markMissingUsers() {
 
       usersInCommetns.forEach((user) => {
         const userId = re.exec(user.href);
-        if (!usersId.includes(userId[1])) {
+        if (!usersId.includes(userId[1]) && !user.classList.contains('marked-link')) {
           user.style = 'background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Emblem-important-red.svg/120px-Emblem-important-red.svg.png); background-repeat: no-repeat; background-size: 15px 15px; background-position-x: 99%; padding-right: 20px;';
           user.title = 'Пользователь не добавлен в задачу';
-        } else {
+          user.classList.add('marked-link');
+        } else if (usersId.includes(userId[1]) && user.classList.contains('marked-link')) {
           user.style = '';
           user.title = '';
+          user.classList.remove('marked-link');
         }
         return true;
       });
