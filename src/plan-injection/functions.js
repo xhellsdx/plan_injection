@@ -173,6 +173,7 @@ export function markMessagesWithoutDestination() {
     }
     const usersInCommetns = message.querySelectorAll('a[href*="/company/personal/user/"]');
     for (let i = 0; i < usersInCommetns.length; i++) {
+      if (usersInCommetns[i].href.includes('/task/')) continue;
       const linkText = usersInCommetns[i].innerText;
       const linkIdUserId = re.exec(usersInCommetns[i].href)[1];
       if (messageUserId === linkIdUserId) continue;
