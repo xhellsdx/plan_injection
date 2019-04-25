@@ -143,8 +143,7 @@ export function addDelAllTaskMessages() {
 export function markMessagesWithoutDestination() {
   if (!location.href.includes('/task/view/')) return false;
   const messages = [...document.querySelectorAll('div.feed-com-text')];
-  let isUsersMarksIn100Sym = false;
-
+  
   function markMessageBlock(message, text, link) {
     const messageUserBox = message.previousElementSibling;
     const warningImg = document.createElement('span');
@@ -160,10 +159,11 @@ export function markMessagesWithoutDestination() {
       link.classList.add('marked');
     }
   }
-
+  
   messages.forEach((message) => {
     const messageUserBox = message.previousElementSibling;
     const messageUserId = messageUserBox.firstChild.getAttribute('bx-tooltip-user-id');
+    let isUsersMarksIn100Sym = false;
     let messageText = message.innerText;
     const re = /\/company\/personal\/user\/(\d+?)\/.*/i;
     messageText = messageText.substring(0, 101);

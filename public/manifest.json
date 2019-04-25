@@ -19,10 +19,5 @@
       "default_icon": "plan-injection-icon.png"
    },
 	 
-	 "options_page": "options.html",
-	 
-	"background": {
-    "all_frames": true,
-    "scripts": ["background.js"]
-  }
+	 "options_page": "options.html"
 }
