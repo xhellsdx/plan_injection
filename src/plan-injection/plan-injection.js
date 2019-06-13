@@ -2,7 +2,7 @@ import {
   alertDeleteMessage, addAllTasksOpenButton, addGroupName, markMessagesToUsers, addGroupFilter, calculateTasksCount,
 } from './functions-alert';
 import {
-  hideForumInSearchResult, disableShowTaskOnTagClick, hideNotForUserMessages, autoChoiseFindSingleUser, changeTitleOnProjectPage, addLongLinkRepair, addDelAllTaskMessages, markMessagesWithoutDestination, openAllCommentsInTask, addEditTaskButton, addCurrentMountButton, markMissingUsers, tagAllColorChange, getBitrixSessid,
+  hideForumInSearchResult, disableShowTaskOnTagClick, hideNotForUserMessages, autoChoiseFindSingleUser, changeTitleOnProjectPage, addLongLinkRepair, addDelAllTaskMessages, markMessagesWithoutDestination, openAllCommentsInTask, addEditTaskButton, addCurrentMountButton, markMissingUsers, tagAllColorChange, getBitrixSessid, showCats,
 } from './functions';
 
 let bitrixSessid = ''; // id сессии пользователя. Вытаскивается при DOMContentLoaded
@@ -70,6 +70,7 @@ function scriptsInjection(options) {
   if ('isOpenAllCommentsInTask' in options) openAllCommentsInTask();
   if ('isAddEditTaskButton' in options) addEditTaskButton();
   if ('isAddCurrentMountButton' in options) addCurrentMountButton(bitrixSessid);
+  if ('isShowCats' in options) showCats();
 }
 
 function alertScriptsInjection(options) {
